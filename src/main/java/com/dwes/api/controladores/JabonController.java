@@ -3,6 +3,7 @@ package com.dwes.api.controladores;
 import java.util.List;
 import java.util.Map;
 
+import com.dwes.api.entidades.Categoria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,6 +117,19 @@ public class JabonController {
             return ResponseEntity.notFound().build(); // O alguna otra respuesta si no hay ingredientes o el jabón no existe
         }
         return ResponseEntity.ok(ingredientes);
+    }
+
+    @GetMapping("/{id}/categorias")
+    @Operation(summary = "Obtener categorias de un jabón por ID", description = "Devuelve una lista de categorias para un jabón específico")
+    @ApiResponse(responseCode = "200", description = "Lista de categorias encontrada")
+    @ApiResponse(responseCode = "404", description = "Categorias no encontradas o jabón no existe")
+    public ResponseEntity<List<Categoria>> getCategoriaPorJabonId(@PathVariable Long id) {
+        logger.info("## getCategoriaPorJabonId ({}) ##",id);
+        List<Categoria> categorias = jabonService.findCategoriasPorJabonId(id);
+        if (categorias.isEmpty()) {
+            return ResponseEntity.notFound().build(); // O alguna otra respuesta si no hay ingredientes o el jabón no existe
+        }
+        return ResponseEntity.ok(categorias);
     }
     
 

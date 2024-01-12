@@ -1,4 +1,5 @@
 package com.dwes.api.servicios.impl;
+import com.dwes.api.entidades.Categoria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -57,9 +58,17 @@ public class JabonServiceImpl implements JabonService {
 	            .orElse(Collections.emptyList()); // O manejar la ausencia de jabón de alguna otra manera
 	}
 
+
+
 	@Override
 	public boolean existsById(Long id) {
 		return jabonRepository.existsById(id);
 	}
 
+	@Override
+	public List<Categoria> findCategoriasPorJabonId(Long jabonId) {
+		return jabonRepository.findById(jabonId)
+				.map(Jabon::getCategorias)
+				.orElse(Collections.emptyList());
+	}
 }

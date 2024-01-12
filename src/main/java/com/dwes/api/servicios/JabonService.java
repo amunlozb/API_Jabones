@@ -3,6 +3,7 @@ package com.dwes.api.servicios;
 import java.util.List;
 import java.util.Optional;
 
+import com.dwes.api.entidades.Categoria;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -22,5 +23,6 @@ public interface JabonService {
     Page<Jabon> findAllByIngredientesContaining(String ingrediente, Pageable pageable);
     Page<Jabon> findByTipoDePiel(TipoDePiel tipoDePiel, Pageable pageable);
 	boolean existsById(Long id);
-  
+
+    List<Categoria> findCategoriasPorJabonId(Long id);
 }
